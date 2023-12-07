@@ -1854,4 +1854,4 @@ if __name__ == "__main__":
     #socketio.run(application, debug=True) # port = 5000
     #application.run(debug=True)
     #application.run(host="0.0.0.0",port=5000, debug=True)
-    application.run(host="0.0.0.0",port=5001, debug=True)
+    application.run(host="0.0.0.0",port=5001, debug=False)
