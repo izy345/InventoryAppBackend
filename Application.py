@@ -144,7 +144,7 @@ multiReceiptSchema = ReceiptSchema(many=True)
 API_Check = "ej2f!nsj6N25f7beuA%k8e*m"
 
 # Route limiting
-default_rate_limit = 80
+default_rate_limit = 160
 @application.before_request
 def amount_request():
     ip_address = request.remote_addr
@@ -160,7 +160,7 @@ def amount_request():
     elif request.path == '/me':
         rate_limit = 92   # Rate limit for /route-2: 5 requests per minute
     elif request.path == '/login':
-        rate_limit = 40
+        rate_limit = 80
     #limit = cache.get(ip_address)
     limit = cache.get(ip_address + request.path)
     total_limit = cache.get(ip_address + 'total_requests')

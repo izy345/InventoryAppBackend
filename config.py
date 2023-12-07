@@ -25,7 +25,8 @@ class ApplicationConfig:
     #SECRET_KEY = generate_secret_key()
     #SECRET_KEY = os.environ["SECRET_KEY"]
     #FLASK_ENV = 'production'
-    SESSION_TYPE = "redis" #redis
+    #SESSION_TYPE = "redis" #redis
+    SESSION_TYPE = "filesystem" #redis
     SESSION_PERMANENT = False
     SESSION_USE_SIGNER = True
     SESSION_KEY_PREFIX = 'InventoryApp:'
