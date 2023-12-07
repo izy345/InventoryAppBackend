@@ -144,7 +144,7 @@ multiReceiptSchema = ReceiptSchema(many=True)
 API_Check = "ej2f!nsj6N25f7beuA%k8e*m"
 
 # Route limiting
-default_rate_limit = 160
+default_rate_limit = 210
 @application.before_request
 def amount_request():
     ip_address = request.remote_addr
