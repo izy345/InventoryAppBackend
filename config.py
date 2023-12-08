@@ -36,7 +36,7 @@ class ApplicationConfig:
     #SESSION_REDIS = redis.from_url("redis://127.0.0.1:6379")
     # for production side
     ELASTICACHE_ENDPOINT = os.getenv("ELASTICACHE_ENDPOINT")
-    SESSION_REDIS = redis.StrictRedis(host=ELASTICACHE_ENDPOINT,decode_responses=True,port=6379,ssl=True, db=0,password='mwridpawrtvjwi38')
+    SESSION_REDIS = redis.StrictRedis(host=ELASTICACHE_ENDPOINT,decode_responses=False,port=6379,ssl=True, db=0,password='mwridpawrtvjwi38')
     #redis = Redis(host='primary.xxx.yyyyyy.zzz1.cache.amazonaws.com', port=6379, decode_responses=True, ssl=True, username=example, password=EXAMPLE)
     
     #this is the one that works with AWS Elasti Cache

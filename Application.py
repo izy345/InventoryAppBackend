@@ -270,13 +270,16 @@ def login_account():
         return jsonify({"Error":"Unauthorized"}), 401
     
     # Checking Multi Factor Authentication
-    if (user.MultiFactor == None or ""):
-        session["user_id"] = user.id
-        session["cart"] = []
-        session["key"] = API_Check
-        session.modified = True
-        print("logged in")
-        return jsonify({"msg":"Success!"}),200
+    try:
+        if (user.MultiFactor == None or ""):
+            session["user_id"] = user.id
+            session["cart"] = []
+            session["key"] = API_Check
+            session.modified = True
+            print("logged in")
+            return jsonify({"msg":"Success!"}),200
+    except Exception as e:
+        print(f"Failed to create/load sessions"),403
     try:
         multiFactor = request.json["MultiFactor"]
         if multiFactor == "":
