@@ -187,7 +187,7 @@ def amount_request():
  # - - - Hello Test - - -
 @application.route("/", methods = ["GET"])
 #@limiter.limit('5 per minute')
-def hello_world():
+def dash_test():
     APIKey = session.get("key")
     if (APIKey != API_Check):
         return jsonify({"msg":"Something went wrong. Please check your settings."}),200
