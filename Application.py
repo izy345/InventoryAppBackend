@@ -153,7 +153,9 @@ def amount_request():
     if 'key' in session and session['key'] == API_Check:
         limit = 0  # No rate limit for requests with the correct session key
         total_limit = 0
-        def_rate_limit = 9999999
+        def_rate_limit = float('inf')
+        cache.set(ip_address + request.path, 0, timeout=180)
+        cache.set(ip_address + 'total_requests', 0, timeout=180)
     elif request.path == '/hello':
         rate_limit = 10  # Rate limit for /route-1: 5 requests per minute
     elif request.path == '/':
@@ -178,11 +180,11 @@ def amount_request():
     #cache.set(ip_address, limit + 1, timeout=60)
     
     if 'key' in session and session['key'] == API_Check:
-        cache.set(ip_address + request.path, limit - 2, timeout=240)
-        cache.set(ip_address + 'total_requests', total_limit - 2, timeout=200)
+        cache.set(ip_address + request.path, limit - 2, timeout=180)
+        cache.set(ip_address + 'total_requests', total_limit - 2, timeout=180)
     else:
-        cache.set(ip_address + request.path, limit + 1, timeout=240)
-        cache.set(ip_address + 'total_requests', total_limit + 1, timeout=200)
+        cache.set(ip_address + request.path, limit + 1, timeout=180)
+        cache.set(ip_address + 'total_requests', total_limit + 1, timeout=180)
  
  # - - - Hello Test - - -
 @application.route("/", methods = ["GET"])
