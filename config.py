@@ -26,15 +26,15 @@ class ApplicationConfig:
     #SECRET_KEY = os.environ["SECRET_KEY"]
     #FLASK_ENV = 'production'
     #SESSION_TYPE = "redis" #redis
-    SESSION_TYPE = "filesystem" #redis
+    SESSION_TYPE = "redis" #redis
     SESSION_PERMANENT = False
     SESSION_USE_SIGNER = True
     SESSION_KEY_PREFIX = 'InventoryApp:'
     # For localhost
-    SESSION_REDIS = redis.from_url("redis://127.0.0.1:6379")
+    #SESSION_REDIS = redis.from_url("redis://127.0.0.1:6379")
     # for production side
     ELASTICACHE_ENDPOINT = os.getenv("ELASTICACHE_ENDPOINT")
-    #SESSION_REDIS = redis.StrictRedis(host=ELASTICACHE_ENDPOINT, port=6379, db=0)
+    SESSION_REDIS = redis.StrictRedis(host=ELASTICACHE_ENDPOINT, port=6379, db=0)
     
     #this is the one that works with AWS Elasti Cache
     #SESSION_REDIS = redis.StrictRedis(host='localhost', port=6379, db=0)

@@ -1,4 +1,5 @@
 #ENV test
+# urllib3<2.0
 import os
 from dotenv import load_dotenv
 # usual flask stuff
@@ -154,8 +155,8 @@ def amount_request():
         limit = 0  # No rate limit for requests with the correct session key
         total_limit = 0
         def_rate_limit = float('inf')
-        cache.set(ip_address + request.path, 0, timeout=180)
-        cache.set(ip_address + 'total_requests', 0, timeout=180)
+        #cache.set(ip_address + request.path, 0, timeout=180)
+        #cache.set(ip_address + 'total_requests', 0, timeout=180)
     elif request.path == '/hello':
         rate_limit = 10  # Rate limit for /route-1: 5 requests per minute
     elif request.path == '/':
