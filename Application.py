@@ -161,14 +161,12 @@ def amount_request():
         #cache.set(ip_address + 'total_requests', 0, timeout=180)
     elif request.path == '/hello':
         rate_limit = 10  # Rate limit for /route-1: 5 requests per minute
-    elif request.path == '/':
-        rate_limit = 999  # Rate limit for /route-1: 5 requests per minute
     elif request.path == '/request_account':
         rate_limit = 6   # Rate limit for /route-2: 1 requests per minute
     elif request.path == '/me':
         rate_limit = 92   # Rate limit for /route-2: 5 requests per minute
     elif request.path == '/login':
-        rate_limit = 120
+        rate_limit = 100
     else:
         rate_limit = 100
     #limit = cache.get(ip_address)
@@ -184,11 +182,11 @@ def amount_request():
     #cache.set(ip_address, limit + 1, timeout=60)
     
     if 'key' in session and session['key'] == API_Check:
-        redis_cache.set(ip_address + request.path, limit - 2, ex=180)
-        redis_cache.set(ip_address + 'total_requests', total_limit - 2, ex=180)
+        redis_cache.set(ip_address + request.path, limit - 2, ex=200)
+        redis_cache.set(ip_address + 'total_requests', total_limit - 2, ex=200)
     else:
-        redis_cache.set(ip_address + request.path, limit + 1, ex=180)
-        redis_cache.set(ip_address + 'total_requests', total_limit + 1, ex=180)
+        redis_cache.set(ip_address + request.path, limit + 1, ex=200)
+        redis_cache.set(ip_address + 'total_requests', total_limit + 1, ex=200)
  
  # - - - Hello Test - - -
 @application.route("/", methods = ["GET"])
