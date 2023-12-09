@@ -172,8 +172,8 @@ def amount_request():
     else:
         rate_limit = 100
     #limit = cache.get(ip_address)
-    limit = redis_cache.get(ip_address + request.path) or 0
-    total_limit = redis_cache.get(ip_address + 'total_requests') or 0
+    limit = int(redis_cache.get(ip_address + request.path) or 0)
+    total_limit = int(redis_cache.get(ip_address + 'total_requests') or 0)
     
     if limit is None:
         limit = 0
