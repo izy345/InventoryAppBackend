@@ -1,4 +1,4 @@
-#ENV test
+#ENV test V1.0.0
 # urllib3<2.0
 import os
 from dotenv import load_dotenv
