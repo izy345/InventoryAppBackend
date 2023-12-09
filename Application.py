@@ -1856,7 +1856,7 @@ def old_deletion():
 
 @application.errorhandler(500)
 def internal_server_error(e):
-    return jsonify(error="Internal Server Error"+e), 500
+    return jsonify(error="Internal Server Error"+str(e)), 500
 
 # Loop and delete anything older than 90 days, inluding reciept_tems
 scheduler = BackgroundScheduler()
