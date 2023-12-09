@@ -8,6 +8,8 @@ import flask_session
 from dotenv import load_dotenv
 load_dotenv()
 
+
+
 class ApplicationConfig:
     
     def generate_secret_key(length=32):
@@ -49,3 +51,5 @@ class ApplicationConfig:
     #SESSION_USE_SIGNER = True
     
     #can also place here postgres config
+ELASTICACHE_ENDPOINT = os.getenv("ELASTICACHE_ENDPOINT")
+redis_cache = redis.StrictRedis(host=ELASTICACHE_ENDPOINT,decode_responses=False,port=6379,ssl=True, db=0,password='mwridpawrtvjwi38')

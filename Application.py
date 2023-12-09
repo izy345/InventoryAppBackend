@@ -27,7 +27,7 @@ import functools
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 # import python apps from the server
 from models import db,Accounts,Sections,Inventory,Reciept,Reciept_items, Divisions, Map, Reserve, Reserve_items
-from config import ApplicationConfig
+from config import ApplicationConfig, redis_cache
 # encryption
 from Cryptography import Cryptography
 # 2FA
@@ -46,6 +46,8 @@ from nltk.stem import SnowballStemmer
 from fuzzywuzzy import fuzz
 
 load_dotenv()
+
+
 
 application = Flask(__name__)
 application.app_context().push()
@@ -150,7 +152,7 @@ default_rate_limit = 210
 def amount_request():
     ip_address = request.remote_addr
     def_rate_limit = default_rate_limit
-    rate_limit = 50
+    rate_limit = 100
     if 'key' in session and session['key'] == API_Check:
         limit = 0  # No rate limit for requests with the correct session key
         total_limit = 0
@@ -170,8 +172,9 @@ def amount_request():
     else:
         rate_limit = 100
     #limit = cache.get(ip_address)
-    limit = cache.get(ip_address + request.path)
-    total_limit = cache.get(ip_address + 'total_requests')
+    limit = redis_cache.get(ip_address + request.path) or 0
+    total_limit = redis_cache.get(ip_address + 'total_requests') or 0
+    
     if limit is None:
         limit = 0
     if total_limit is None:
@@ -181,11 +184,11 @@ def amount_request():
     #cache.set(ip_address, limit + 1, timeout=60)
     
     if 'key' in session and session['key'] == API_Check:
-        cache.set(ip_address + request.path, limit - 2, timeout=180)
-        cache.set(ip_address + 'total_requests', total_limit - 2, timeout=180)
+        redis_cache.set(ip_address + request.path, limit - 2, timeout=180)
+        redis_cache.set(ip_address + 'total_requests', total_limit - 2, timeout=180)
     else:
-        cache.set(ip_address + request.path, limit + 1, timeout=180)
-        cache.set(ip_address + 'total_requests', total_limit + 1, timeout=180)
+        redis_cache.set(ip_address + request.path, limit + 1, timeout=180)
+        redis_cache.set(ip_address + 'total_requests', total_limit + 1, timeout=180)
  
  # - - - Hello Test - - -
 @application.route("/", methods = ["GET"])
