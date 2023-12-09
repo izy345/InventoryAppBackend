@@ -185,7 +185,7 @@ def amount_request():
     
     if 'key' in session and session['key'] == API_Check:
         redis_cache.set(ip_address + request.path, limit - 2, ex=180)
-        redis_cache.set(ip_address + 'total_requests', total_limit - 2, timeout=180)
+        redis_cache.set(ip_address + 'total_requests', total_limit - 2, ex=180)
     else:
         redis_cache.set(ip_address + request.path, limit + 1, ex=180)
         redis_cache.set(ip_address + 'total_requests', total_limit + 1, ex=180)
