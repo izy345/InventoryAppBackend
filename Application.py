@@ -336,9 +336,9 @@ def me_account():
     try:
         APIKey = session.get("key")
         if (APIKey != API_Check):
-            return jsonify({"msg":"Something went wrong. Please check your settings."}),403
+            return jsonify({"msg":"Something went wrong. Please check your settings.E1"}),403
     except Exception as e:
-        return jsonify({"msg":"Something went wrong. Please check your settings."}),403
+        return jsonify({"msg":"Something went wrong. Please check your settings.E2"}),403
     
     user_id = session.get("user_id") 
     if not user_id:
