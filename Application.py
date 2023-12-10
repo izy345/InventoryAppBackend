@@ -53,7 +53,7 @@ application = Flask(__name__)
 application.app_context().push()
 application.config.from_object(ApplicationConfig) #not nessesary, can do app.config() instead 
 #CORS(application, supports_credentials=True, resources = {r"/*":{"origins":"*"}})
-CORS(application, supports_credentials=True, resources={r"/*": {"origins": "https://hpinventory.com"}})
+CORS(application, supports_credentials=True, resources={r"/*": {"origins": ["https://hpinventory.com", "https://www.hpinventory.com"]}})
 #CORS(application, supports_credentials=True, resources = {r"/*":{"origins":"*"}})
 #CORS(app, resources = {r"/*":{"origins":"*"}})
 
