@@ -52,7 +52,8 @@ load_dotenv()
 application = Flask(__name__)
 application.app_context().push()
 application.config.from_object(ApplicationConfig) #not nessesary, can do app.config() instead 
-CORS(application, supports_credentials=True, resources = {r"/*":{"origins":"*"}})
+#CORS(application, supports_credentials=True, resources = {r"/*":{"origins":"*"}})
+CORS(application, supports_credentials=True, resources={r"/*": {"origins": "https://hpinventory.com"}})
 #CORS(application, supports_credentials=True, resources = {r"/*":{"origins":"*"}})
 #CORS(app, resources = {r"/*":{"origins":"*"}})
 
@@ -168,7 +169,7 @@ def amount_request():
     elif request.path == '/login':
         rate_limit = 100
     else:
-        rate_limit = 100
+        rate_limit = 50
     #limit = cache.get(ip_address)
     limit = int(redis_cache.get(ip_address + request.path) or 0)
     total_limit = int(redis_cache.get(ip_address + 'total_requests') or 0)
