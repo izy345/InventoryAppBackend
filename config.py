@@ -23,10 +23,9 @@ class ApplicationConfig:
     PROPAGATE_EXCEPTIONS = False
     # session stuff
     #secret key can be:
-    """diewjoiewjdioejf0923f02f8028809283098309128dodk1"""
-    SECRET_KEY = generate_secret_key()
-    #SECRET_KEY = generate_secret_key()
-    #SECRET_KEY = os.environ["SECRET_KEY"]
+    FLASK_KEY_ENCRYPTION = os.getenv("SECRET_KEY")
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    #SECRET_KEY = FLASK_KEY_ENCRYPTION
     #FLASK_ENV = 'production'
     #SESSION_TYPE = "redis" #redis
     SESSION_TYPE = "redis" #redis
