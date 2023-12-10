@@ -24,8 +24,8 @@ class ApplicationConfig:
     # session stuff
     #secret key can be:
     FLASK_KEY_ENCRYPTION = os.getenv("SECRET_KEY")
-    SECRET_KEY = os.getenv("SECRET_KEY")
-    #SECRET_KEY = FLASK_KEY_ENCRYPTION
+    #SECRET_KEY = generate_secret_key()
+    SECRET_KEY = FLASK_KEY_ENCRYPTION
     #FLASK_ENV = 'production'
     #SESSION_TYPE = "redis" #redis
     SESSION_TYPE = "redis" #redis
