@@ -167,9 +167,9 @@ def amount_request():
     elif request.path == '/me':
         rate_limit = 92   # Rate limit for /route-2: 5 requests per minute
     elif request.path == '/login':
-        rate_limit = 100
+        rate_limit = 75
     elif request.path == '/':
-        rate_limit = 80
+        rate_limit = 87
     else:
         rate_limit = 50
     #limit = cache.get(ip_address)
@@ -1863,7 +1863,7 @@ def internal_server_error(e):
 
 # Loop and delete anything older than 90 days, inluding reciept_tems
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=old_deletion, trigger='interval', days=7)
+scheduler.add_job(func=old_deletion, trigger='interval', days=4)
 scheduler.start()         
 
       
