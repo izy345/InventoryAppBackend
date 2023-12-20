@@ -168,6 +168,8 @@ def amount_request():
         rate_limit = 92   # Rate limit for /route-2: 5 requests per minute
     elif request.path == '/login':
         rate_limit = 100
+    elif request.path == '/':
+        rate_limit = 80
     else:
         rate_limit = 50
     #limit = cache.get(ip_address)
@@ -183,8 +185,8 @@ def amount_request():
     #cache.set(ip_address, limit + 1, timeout=60)
     
     if 'key' in session and session['key'] == API_Check:
-        redis_cache.set(ip_address + request.path, limit - 2, ex=200)
-        redis_cache.set(ip_address + 'total_requests', total_limit - 2, ex=200)
+        redis_cache.set(ip_address + request.path, limit - 2, ex=260)
+        redis_cache.set(ip_address + 'total_requests', total_limit - 2, ex=260)
     else:
         redis_cache.set(ip_address + request.path, limit + 1, ex=200)
         redis_cache.set(ip_address + 'total_requests', total_limit + 1, ex=200)
@@ -195,8 +197,8 @@ def amount_request():
 def dash_test():
     APIKey = session.get("key")
     if (APIKey != API_Check):
-        return jsonify({"msg":"Something went wrong. Please check your settings."}),200
-    return jsonify({"msg": "Hello World!"}),200
+        return jsonify({"msg":"Houston Painting S & S LLC."}),200
+    return jsonify({"msg": "Houston Painting S & S LLC."}),200
   
 @application.route("/hello", methods = ["GET"])
 #@limiter.limit('5 per minute')
@@ -1855,7 +1857,9 @@ def old_deletion():
 
 @application.errorhandler(500)
 def internal_server_error(e):
-    return jsonify(error="Internal Server Error"+str(e)), 500
+    #print(e)
+    return jsonify("Internal Server Error"), 500
+    #return jsonify(error="Internal Server Error"+str(e)), 500
 
 # Loop and delete anything older than 90 days, inluding reciept_tems
 scheduler = BackgroundScheduler()
