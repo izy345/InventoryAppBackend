@@ -169,7 +169,7 @@ def amount_request():
     elif request.path == '/login':
         rate_limit = 75
     elif request.path == '/':
-        rate_limit = 87
+        rate_limit = 90
     else:
         rate_limit = 50
     #limit = cache.get(ip_address)
